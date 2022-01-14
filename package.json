@@ -1,20 +1,27 @@
 {
   "name": "social_network_api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Social Network API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bkturner1220/Social_Network_API.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Brian Turner",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bkturner1220/Social_Network_API/issues"
   },
-  "homepage": "https://github.com/bkturner1220/Social_Network_API#readme"
+  "homepage": "https://github.com/bkturner1220/Social_Network_API#readme",
+  "dependencies": {
+    "dotenv": "^11.0.0",
+    "express": "^4.17.1",
+    "moment": "^2.28.0",
+    "mongoose": "^5.10.6"
+  }
 }
