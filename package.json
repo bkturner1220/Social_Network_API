@@ -1,11 +1,12 @@
 {
-  "name": "social_network_api",
+  "name": "Social_Network_API",
   "version": "1.0.0",
   "description": "Social Network API",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node index",
+    "dev": "nodemon index",
+    "heroku-seed": "node utils/seed.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   "homepage": "https://github.com/bkturner1220/Social_Network_API#readme",
   "dependencies": {
     "dotenv": "^11.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "moment": "^2.28.0",
     "mongoose": "^5.10.6"
   }
