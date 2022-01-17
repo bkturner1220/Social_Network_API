@@ -5,24 +5,25 @@ const log = console.log
 
 const userController = {
     //get all users
-    getAllUsers(req,res) {
+    async getAllUsers(req,res) {
         try {
-            const dbUserData = User.find({})
+            const dbUserData = await User.find({})
             .populate({
                 path: 'thoughts',
                 select: '-__v'
              })
             .select('-__v')
             res.json(dbUserData)
+            log(dbUserData)
         } catch (error) {
             log(error);
             res.status(500).json(error);
         }},
 
     //get User by ID with thoughts
-    getUserById({ params }, res) {
+   async getUserById({ params }, res) {
         try {
-            const dbUserData = User.findOne({ _id: params.id })
+            const dbUserData = await User.findOne({ _id: params.id })
            .populate({
                path: 'thoughts',
                select: '-__v'
@@ -39,8 +40,8 @@ const userController = {
         }},
 
      //create User
-     createUser({ body }, res) {
-         const dbUserData = User.create(body);
+    async createUser({ body }, res) {
+         const dbUserData = await User.create(body);
          try {
             res.json(dbUserData);
          } catch (error) {
@@ -49,9 +50,9 @@ const userController = {
      }},
   
      //add friend
-     addFriend({ params }, res) {
+    async addFriend({ params }, res) {
          try {
-            const dbUserData = User.findOneAndUpdate(
+            const dbUserData = await User.findOneAndUpdate(
                 {_id: params.userId},
                 { $push: { friends: params.friendId }},
                 { new: true, runValidators: true});
@@ -66,9 +67,9 @@ const userController = {
          }},
 
      //update User
-     updateUser({ params, body}, res) {
+     async updateUser({ params, body}, res) {
          try {
-            const dbUserData =  User.findOneAndUpdate({ _id: params.id}, body, { new: true, runValidators: true});
+            const dbUserData = await User.findOneAndUpdate({ _id: params.id}, body, { new: true, runValidators: true});
             if (!dbUserData) {
                 res.status(404).json({ message: 'No user found with this ID!' });
                 return;
@@ -81,9 +82,9 @@ const userController = {
     },
 
      //delete User
-     deleteUser({ params }, res) {
+    async deleteUser({ params }, res) {
         try {
-            const dbUserData = User.findOneAndDelete({ _id: params.id });
+            const dbUserData = await User.findOneAndDelete({ _id: params.id });
             if (!dbUserData) {
                 res.status(404).json({ message: 'No user found with this ID!' });
                 return;
@@ -95,9 +96,9 @@ const userController = {
     }},
 
      //remove Friend
-     removeFriend( { params }, res) {
+   async removeFriend( { params }, res) {
         try {
-            const dbUserData = User.findOneAndUpdate(
+            const dbUserData = await User.findOneAndUpdate(
              { _id: params.userId },
              { $pull: { friends: params.friendId }},
              { new: true});

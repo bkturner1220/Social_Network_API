@@ -1,3 +1,5 @@
+const util = require('util')
+
 const addDateSuffix = date => {
     let dateStr = date.toString();
   
@@ -93,6 +95,7 @@ const addDateSuffix = date => {
     }
   
     const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
-  
+    console.log(util.inspect(myObject))
+
     return formattedTimeStamp;
   };

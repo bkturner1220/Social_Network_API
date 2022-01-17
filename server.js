@@ -10,5 +10,5 @@ app.use(express.json());
 app.use(routes);
 
   app.listen(PORT, () => {
-    console.log(`🌍  Api server listening on http://localhost:${PORT} 🌍`);
+    console.log(`🌍 Api server listening on http://localhost:${PORT} 🌍`);
   });

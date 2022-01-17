@@ -4,8 +4,8 @@
   "description": "Social Network API",
   "main": "server.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
+    "start": "nodemon server",
+    "monitor": "nodemon server",
     "heroku-seed": "node utils/seed.js"
   },
   "repository": {
@@ -22,6 +22,7 @@
   "dependencies": {
     "dotenv": "^11.0.0",
     "express": "^4.17.2",
+    "json-stringify-safe": "^5.0.1",
     "moment": "^2.28.0",
     "mongoose": "^5.10.6"
   }
