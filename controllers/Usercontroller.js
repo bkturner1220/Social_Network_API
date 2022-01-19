@@ -7,9 +7,10 @@ const userController = {
     //get all users
     async getAllUsers(req,res) {
         try {
+            log('GET ALL USERS');
             const dbUserData = await User.find({})
             .populate({
-                path: 'thoughts',
+                path: 'reactions',
                 select: '-__v'
              })
             .select('-__v')
@@ -25,7 +26,7 @@ const userController = {
         try {
             const dbUserData = await User.findOne({ _id: params.id })
            .populate({
-               path: 'thoughts',
+               path: 'thoughtText',
                select: '-__v'
             })
             .populate ({

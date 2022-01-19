@@ -95,7 +95,6 @@ const addDateSuffix = date => {
     }
   
     const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
-    console.log(util.inspect(myObject))
 
     return formattedTimeStamp;
   };
