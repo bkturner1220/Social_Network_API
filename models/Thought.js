@@ -4,7 +4,7 @@ const ReactionSchema = require("./Reaction");
 
 const ThoughtSchema = new Schema (
     {
-        thoughtText: {
+        userThought: {
             type: String,
             required: true,
             minlength: 1,
@@ -31,13 +31,10 @@ const ThoughtSchema = new Schema (
   }
 )
 
-
 const Thought = model('Thought', ThoughtSchema);
 
-  // get total count of friends on retrieval
   ThoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
   });
-
 
 module.exports = Thought;

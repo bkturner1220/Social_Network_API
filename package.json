@@ -1,12 +1,12 @@
 {
-  "name": "Social_Network_API",
+  "name": "social_network_api",
   "version": "1.0.0",
   "description": "Social Network API",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "node server.js",
     "monitor": "nodemon server",
-    "heroku-seed": "node utils/seed.js"
+    "seed": "node utils/seed.js"
   },
   "repository": {
     "type": "git",

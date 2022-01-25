@@ -21,12 +21,12 @@ const userController = {
             res.status(500).json(error);
         }},
 
-    //get User by ID with thoughts
+    //get User by ID by thoughts
    async getUserById({ params }, res) {
         try {
             const dbUserData = await User.findOne({ _id: params.id })
            .populate({
-               path: 'thoughtText',
+               path: 'userThought',
                select: '-__v'
             })
             .populate ({
@@ -44,36 +44,24 @@ const userController = {
     async createUser({ body }, res) {
          const dbUserData = await User.create(body);
          try {
-            res.json(dbUserData);
+            if (dbUserData) {
+                res.status(200).json({ message: `User was created successfully!`})
+            } else {
+                res.status(404).json({ message: 'Error, please try again!'});
+            }
          } catch (error) {
             log(error);
             res.status(500).json(error);
      }},
   
-     //add friend
-    async addFriend({ params }, res) {
-         try {
-            const dbUserData = await User.findOneAndUpdate(
-                {_id: params.userId},
-                { $push: { friends: params.friendId }},
-                { new: true, runValidators: true});
-                    if (!dbUserData) {
-                    res.status(404).json({ message: 'No user found with this ID!' });
-                    return;
-                    };
-                        res.json(dbUserData);
-         } catch (error) {
-            log(error);
-            res.status(500).json(error);
-         }},
-
      //update User
      async updateUser({ params, body}, res) {
          try {
             const dbUserData = await User.findOneAndUpdate({ _id: params.id}, body, { new: true, runValidators: true});
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this ID!' });
-                return;
+            if (dbUserData) {
+                res.status(200).json({ message: `User was updated successfully!`})
+            } else {
+                res.status(404).json({ message: 'No user found with this username!'});
             }
             res.json(dbUserData);
          } catch (error) {
@@ -86,15 +74,32 @@ const userController = {
     async deleteUser({ params }, res) {
         try {
             const dbUserData = await User.findOneAndDelete({ _id: params.id });
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this ID!' });
-                return;
+            if (dbUserData) {
+                res.status(200).json({ message: `User was deleted successfully!`})
+            } else {
+                res.status(404).json({ message: 'No user found with this username!'});
             }
-            res.json(dbUserData); 
         } catch (error) {
             log(error);
             res.status(500).json(error);
     }},
+
+         //add friend to User
+         async addFriend({ params }, res) {
+            try {
+               const dbUserData = await User.findOneAndUpdate(
+                   {_id: params.userId},
+                   { $push: { friends: params.friendId }},
+                   { new: true, runValidators: true});
+                   if (dbUserData) {
+                       res.status(200).json({ message: `Friend was created successfully!`})
+                   } else {
+                       res.status(404).json({ message: 'No user found with this username!'});
+                   }
+            } catch (error) {
+               log(error);
+               res.status(500).json(error);
+            }},
 
      //remove Friend
    async removeFriend( { params }, res) {
@@ -103,11 +108,11 @@ const userController = {
              { _id: params.userId },
              { $pull: { friends: params.friendId }},
              { new: true});
-             if (!dbUserData) {
-                res.status(404).json({ message: 'No user found at this id!' });
-                return;
+             if (dbUserData) {
+                res.status(200).json({ message: `Friend was deleted successfully!`})
+            } else {
+                res.status(404).json({ message: 'No user found with this username!'});
             }
-                res.json(dbUserData);
         } catch (error) {
             log(error);
             res.status(500).json(error);

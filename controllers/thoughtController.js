@@ -1,13 +1,10 @@
 const { Thought, User } = require('../models');
 
-
 // Global variables
 const log = console.log
 
 const thoughtController = {
     //get all thoughts
-   
-   
    
     async getAllThoughts(req, res) {
         try {
@@ -23,7 +20,8 @@ const thoughtController = {
             log(error);
             res.status(500).json(error);
         }},
-    //get one thought by ID
+
+    //get thought by ID
     async getThoughtById({ params }, res) {
         try {
             const dbUserData = await Thought.findOne({ _id: params.id })
@@ -40,7 +38,7 @@ const thoughtController = {
         }},
 
     //create thought
-    async createThought({ params, body }, res) {
+    async createThought({ body }, res) {
         try {
             const dbUserData = await Thought.create(body)
             .then(({ _id}) => {
@@ -58,42 +56,6 @@ const thoughtController = {
             log(error);
             res.status(500).json(error);
         }},
-
-    //add reaction
-   async addReaction ({ params, body}, res) {
-            try {
-                const dbThoughtData = await Thought.findOneAndUpdate(
-                    { _id: params.thoughtId },
-                    { $push: { reactions: body }},
-                    { new: true, runValidators: true });
-                        if (dbThoughtData) {
-                            res.status(200).json({ message: 'Reaction added to thought successfully!' });
-                    } else {
-                        res.status(404).json({ message: 'No thought with this ID!' });
-                        log(dbThoughtData);
-                    }
-            } catch (error) {
-                log(error);
-                res.status(500).json(error);
-        }},
-
-    //delete Reaction
-   async removeReaction({ params }, res) {
-        try {
-            const dbThoughtData = await Thought.findOneAndUpdate(
-                { _id: params.thoughtId },
-                { $pull: { reactions: { reactionId: params.reactionId }}},
-                { new: true, runValidators: true });
-                if (dbThoughtData) {
-                    res.status(200).json({ message: 'Reaction deleted successfully!'});
-                } else {
-                    res.status(404).json({ message: 'No reaction with this ID!' });
-                    log(dbThoughtData);
-                }
-        } catch (error) {
-            log(error);
-            res.status(500).json(error);
-    }},
 
     //update a thought by ID
    async updateThought({ params, body }, res) {
@@ -127,6 +89,42 @@ const thoughtController = {
             log(error);
             res.status(500).json(error);
     }},
+
+        //add reaction
+   async addReaction ({ params, body}, res) {
+    try {
+        const dbThoughtData = await Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $push: { reactions: body }},
+            { new: true, runValidators: true });
+                if (dbThoughtData) {
+                    res.status(200).json({ message: 'Reaction added to thought successfully!' });
+            } else {
+                res.status(404).json({ message: 'No thought with this ID!' });
+                log(dbThoughtData);
+            }
+        } catch (error) {
+            log(error);
+                res.status(500).json(error);
+                        }},
+
+    //delete Reaction
+    async removeReaction({ params }, res) {
+    try {
+        const dbThoughtData = await Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $pull: { reactions: { reactionId: params.reactionId }}},
+            { new: true, runValidators: true });
+                if (dbThoughtData) {
+                    res.status(200).json({ message: 'Reaction deleted successfully!'});
+                        } else {
+                    res.status(404).json({ message: 'No reaction with this ID!' });
+                        log(dbThoughtData);
+                              }
+        } catch (error) {       
+            log(error);
+                res.status(500).json(error);
+                        }},
 }
 
 module.exports = thoughtController

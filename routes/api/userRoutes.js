@@ -7,8 +7,7 @@ const {
     updateUser,
     deleteUser,
     removeFriend
-                } = require('../../controllers/userController');
-
+        } = require('../../controllers/userController');
 router
     .route('/')
     .get(getAllUsers)

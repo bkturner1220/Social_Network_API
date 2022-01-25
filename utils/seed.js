@@ -1,14 +1,16 @@
-const connect = require("../config/connection").start();
-const express = require('express');
-const mongoose = require("mongoose");
+const connection = require('../config/connection');
 
 // Global Variables
 const log = console.log
 
-// Models
-const { User, Thought, Reaction } = require("../models");
+// Start the seeding runtime timer
+console.time('Seeding SocialDB via MongoDB...');
 
-(async() => {
+// Models
+const { User, Thought } = require("../models");
+
+connection.once('open', async () => {
+
     // Empty models
     await User.deleteMany({}, (error, result) => {
         if (error) {
@@ -21,17 +23,23 @@ const { User, Thought, Reaction } = require("../models");
         }
     });
 
-
     // Create users
-    await User.create({ username: "testUser", email: "fake-email-" + Date.now() + "@fake-domain.com" });
-    await User.create({ username: "testUser2", email: "fake-email-" + Date.now() + "@fake-domain.com" });
-    await User.create({ username: "testUser3", email: "fake-email-" + Date.now() + "@fake-domain.com" });
+    await User.create({ username: "newUser", email: "newUser@email.com" });
+    await User.create({ username: "newUser2", email: "newUser2@email.com" });
+    await User.create({ username: "newUser3", email: "newUser3@email.com" });
+    await User.create({ username: "newUser4", email: "newUser4@email.com" });
 
-    // Create a thought for testUser
-    let thoughtId = await Thought.create({ username: "testUser", thoughtText: "This is a THOUGHT TEXT..." });
-    await User.findOneAndUpdate({ username: "testUser" }, {
-        $push: { thoughts: thoughtId }
+    let newUserThought = await Thought.create({ username: "newUser", userThought: "I love this social network api!" });
+    await User.findOneAndUpdate({ username: "newUser" }, {
+        $push: { thoughts: newUserThought }
     });
+
+    let newUser2Thought = await Thought.create({ username: "newUser2", userThought: "I love this social network api too! It's Awesome!!!" });
+    await User.findOneAndUpdate({ username: "newUser2" }, {
+        $push: { thoughts: newUser2Thought }
+    });
+
     
-    await mongoose.disconnect();
-})();
+    console.timeEnd('Seeding successfully completed!');
+    process.exit(0);
+});

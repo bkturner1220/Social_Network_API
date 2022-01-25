@@ -1,109 +1,65 @@
-Social Media API
-====
 
-Table of Contents
----
-- [Description](#description)
-- [Video Walkthrough](#video-walkthrough)
-- [Screenshot](#screenshot)
-- [Installation](#installation)
-- [Schema](#schema)
-- [API Routes](#api-routes)
-- [Tests](#tests)
-- [Questions](#questions)
+# Social Network API ![License](https://img.shields.io/badge/License-MIT-blue)
 
-Installation
----
-1. Run `npm install`. 
+## Brief Description 🔖 <a name='description'></a>
+   A Social Network API using MongoDB.
 
-2. Open mongod server by running the command `mongod`.
+## Table of Contents 📇
+   * [Brief Description](#description)
+   * [About Social Network API](#about)
+   * [Installation](#install)
+   * [Usage](#usage)
+   * [Testing](#test)
+   * [Screenshots](#screenshots)
+   * [Demo Video](#demo)
+   * [Github Pages URL](#pages) 
+   * [Github Repository URL](#repo)
+   * [Contact Details](#contact)
+   * [License](#license)
+   * [Contributions to Repo](#contributions)
+   * [Additional Information](#info)
 
-3. You may want to seed some data so you can test out the database by running `npm run seed`. 
+## About Social Network API 📖 <a name='about'></a>
+   A Social Network API using MongoDB.  Have the ability to add friends, thoughts, and reactions.  All features required in your typical Social Network back-end.  All this API needs is just a front-end to be operational.
+   
+## Installation 🏗️ <a name='install'></a>
+   npm i
+ 
+## Usage 📝 <a name='usage'></a>
+   npm start
 
-4. Now you can run the API on localhost with `npm start`. Open an API test tool to "localhost:3001/api/<API_ENDPOINT>" and change the request method to the appropriate one. This can be Insomnia Core or Postman.
+## Testing <a name='test'></a>
+   npm test
 
-5. Look into the [Tests](#tests) section for further instructions. Once you are satisfied, you can adapt this code to your node project.
+## Screenshots 📷 <a name='screenshots'></a>
+   ![alt text](./assets/screenshots/screenshot.png)
+   <br>
+   ![alt text](./assets/screenshots/screenshot3.png)
+   <br>
+## Demo Video 📺 <a name='demo'></a>
+   <a href="https://youtu.be/ahYnrC67w_w" target="_blank">----==== YouTube.com Video Link (with audio) ====----</a>
+   <br>
+   <br>
 
-Schema
----
-![Database Schema](README/schema.png)
-
-API Routes
----
-
-### `/api/users`
-
-- GET all users
-- POST a new user
-    - Test case:
-
-        ```
-        body: 
-        {
-            "username": "NEW_USER_FOR_DEMO",
-            "email": "fake-email-20210223@fake-domain.com"
-        }
-        ```
-
-
-### `/api/users/:userId`
-
-- GET a single user by its \_id and populate its thought and friend data
-- PUT to update a user by its \_id
-    - Test case:
-
-        ```
-        body: 
-        {
-            "email": "testUser@updated-domain.com"
-        }
-        ```
-
-- [x] DELETE to remove user by its \_id
-
-### `/api/users/:userId/friends/:friendId`
-
-- POST to add a new friend to a user's friend list
-- DELETE to remove a friend from a user's friend list
-
-### `/api/thoughts`
-
-- GET to get all thoughts
-- POST to create a new thought (and push the created thought's \_id to the associated user's thoughts array field)
-    - Test case:
-
-        ```
-        body: 
-        {
-            "username": "testUser",
-            "thoughtText": "I am a thought"
-        }
-        ```
-
-### `/api/thoughts/:thoughtId`
-- GET to get a single thought by its \_id
-- PUT to update a thought by its \_id
-    - Test case:
-
-        ```
-        body: 
-        {
-            "thoughtText": "I am thinking of another..."
-        }
-- DELETE to remove a thought by its \_id
-
-### `/api/thoughts/:thoughtId/reactions`
-
-- POST to create a reaction stored in a single thought's reactions array field
-    - Test case:
-
-        ```
-        body: 
-        {
-            "reactionBody": "I am reacting to your thought",
-        }
-
-### `/api/thoughts/:thoughtId/reactions/:reactionId`
-- DELETE to pull and remove a reaction by the reaction's reactionId value
-
-
+   ![alt text](./assets/demo/demo_gif.gif)
+        
+## Github Pages URL 🔗 <a name='pages'></a>
+   <a href="https://bkturner1220.github.io/Social_Network_API" target="_blank">https://bkturner1220.github.io/Social_Network_API</a>
+   
+## Github Repository URL 🔗 <a name='repo'></a>
+   <a href="https://github.com/bkturner1220/Social_Network_API" target="_blank">https://github.com/bkturner1220/Social_Network_API</a>
+     
+## Contact Information <a name='contact'></a>
+   Github Username: [bkturner1220](https://github.com/bkturner1220/)<br>
+   Github: <a href="https://github.com/bkturner1220/">https://github.com/bkturner1220/</a><br>
+   Email: <a href="mailto:bturner@texascdlprep.com">bturner@texascdlprep.com</a>
+   
+## License Information 📛 <a name='license'></a>
+![License](https://img.shields.io/badge/License-MIT-blue)<br>
+   The application is covered under MIT license.
+   
+## Contributions towards Social Network API 👫 <a name='contributions'></a>
+   SMU Coding Bootcamp and lots of random documentation
+         
+## Additional Information <a name='info'></a>
+   If you encounter any problems, please feel free to reach out to me by sending me a [Email] to <a href="mailto:bturner@texascdlprep.com">bturner@texascdlprep.com</a>.
